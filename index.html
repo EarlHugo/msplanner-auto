@@ -16,8 +16,7 @@
       --badge-wait-bg: #feebc8; --badge-wait-text: #9c4221;
       --badge-high-bg: #fed7d7; --badge-high-text: #9b2c2c;
       --chart-bg: #0b0e11; --chart-text: #eaecef;
-      --chart-up: #0ecb81; --chart-down: #f6465d;
-      --report-bg: #f8fafc;
+      --chart-line1: #0ecb81; --chart-line2: #f0b90b; --chart-line3: #2563eb;
     }
     .dark-mode {
       --bg: #1a202c; --card: #2d3748; --input: #2d3748;
@@ -27,294 +26,214 @@
       --badge-active-bg: #1e3a5f; --badge-active-text: #93c5fd;
       --badge-wait-bg: #78350f; --badge-wait-text: #fde68a;
       --badge-high-bg: #7f1d1d; --badge-high-text: #fecaca;
-      --report-bg: #1e293b;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
       font-family: 'Segoe UI', 'Arial', sans-serif;
       background: var(--bg); color: var(--text);
-      min-height: 100vh; padding: 0.5rem;
-      font-size: 14px; line-height: 1.3;
+      min-height: 100vh; padding: 0.75rem;
+      font-size: 16px; line-height: 1.4;
     }
     .app { max-width: 100%; margin: 0 auto; }
+
     .app-header {
       display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 0.4rem; padding: 0.4rem 0.6rem;
-      background: var(--card); border-radius: 0.5rem; border: 2px solid var(--border);
+      margin-bottom: 0.5rem; padding: 0.6rem 0.8rem;
+      background: var(--card); border-radius: 0.6rem; border: 2px solid var(--border);
     }
-    .app-header h1 { font-size: 1.15rem; font-weight: 700; }
-    .badge { font-size:0.7rem; padding:0.2rem 0.45rem; border-radius:2rem; font-weight:700; display:inline-block; }
-    .badge-count { background:var(--accent2); color:#fff; }
-    .badge-saved { background:var(--success); color:#fff; font-size:0.6rem; padding:0.15rem 0.4rem; margin-left:0.3rem; }
+    .app-header h1 { font-size: 1.4rem; font-weight: 700; }
+    .badge { font-size:0.85rem; padding:0.25rem 0.55rem; border-radius:2rem; font-weight:700; display:inline-block; }
+    .badge-count { background:var(--accent2); color:#fff; font-size:0.9rem; padding:0.3rem 0.6rem; }
 
-    .main-layout { display: flex; gap: 0.4rem; }
+    .main-layout { display: flex; gap: 0.5rem; }
     .main-content { flex: 1; min-width: 0; }
-    .side-panel { width: 270px; flex-shrink: 0; }
-    @media (max-width: 950px) { .main-layout { flex-direction: column; } .side-panel { width: 100%; } }
+    .side-panel { width: 280px; flex-shrink: 0; }
+    @media (max-width: 1000px) { .main-layout { flex-direction: column; } .side-panel { width: 100%; } }
 
     .controls-bar {
-      display: flex; gap: 0.25rem; flex-wrap: wrap; align-items: center;
-      padding: 0.3rem 0.45rem; background: var(--card); border-radius: 0.4rem;
-      border: 2px solid var(--border); margin-bottom: 0.3rem;
+      display: flex; gap: 0.3rem; flex-wrap: wrap; align-items: center;
+      padding: 0.4rem 0.55rem; background: var(--card); border-radius: 0.45rem;
+      border: 2px solid var(--border); margin-bottom: 0.35rem;
     }
     input[type="text"], input[type="date"], select {
-      font-size:0.7rem; padding:0.25rem 0.45rem; border-radius:0.3rem;
+      font-size:0.8rem; padding:0.35rem 0.55rem; border-radius:0.35rem;
       border:2px solid var(--border); background:var(--input); color:var(--text);
-      min-height: 32px;
+      min-height: 38px;
     }
-    input[type="text"] { min-width:130px; flex:1; max-width:180px; }
-    input[type="date"] { min-width:120px; }
+    input[type="text"] { min-width:150px; flex:1; max-width:220px; }
+    input[type="date"] { min-width:130px; }
     select { cursor:pointer; }
     .btn {
-      font-size:0.68rem; padding:0.25rem 0.5rem; border-radius:0.3rem;
+      font-size:0.78rem; padding:0.35rem 0.6rem; border-radius:0.35rem;
       border:none; cursor:pointer; font-weight:700; white-space:nowrap;
-      display:inline-flex; align-items:center; gap:0.12rem; min-height: 32px;
+      display:inline-flex; align-items:center; gap:0.15rem; min-height:38px;
     }
     .btn-primary { background:var(--accent); color:#fff; }
     .btn-outline { background:transparent; border:2px solid var(--border); color:var(--text); }
     .btn-success { background:var(--success); color:#fff; }
     .btn-warning { background:var(--warning); color:#1a202c; }
     .btn-info { background:var(--accent2); color:#fff; }
-    .btn-danger { background:var(--danger); color:#fff; font-size:0.6rem; padding:0.18rem 0.3rem; min-height:26px; }
+    .btn-danger { background:var(--danger); color:#fff; font-size:0.7rem; padding:0.2rem 0.35rem; min-height:30px; }
     .btn:hover { opacity:0.9; }
 
-    .tabs { display:flex; gap:0; background:var(--input); border-radius:0.3rem; padding:0.1rem; border:2px solid var(--border); }
-    .tab {
-      padding:0.25rem 0.45rem; border:none; background:transparent;
-      border-radius:0.25rem; cursor:pointer; font-size:0.65rem; font-weight:600;
-      color:var(--text2); min-height:28px;
-    }
+    .tabs { display:flex; gap:0; background:var(--input); border-radius:0.35rem; padding:0.1rem; border:2px solid var(--border); }
+    .tab { padding:0.3rem 0.55rem; border:none; background:transparent; border-radius:0.3rem; cursor:pointer; font-size:0.75rem; font-weight:600; color:var(--text2); min-height:32px; }
     .tab.active { background:var(--card); color:var(--text); font-weight:700; }
 
-    .stats-row { display:flex; gap:0.25rem; flex-wrap:wrap; margin-bottom:0.3rem; }
-    .stat-card {
-      flex:1; min-width:55px; background:var(--card); border-radius:0.3rem;
-      padding:0.25rem 0.35rem; text-align:center; border:2px solid var(--border); font-size:0.65rem;
-    }
-    .stat-val { font-size:1rem; font-weight:700; }
-    .stat-lbl { font-size:0.55rem; color:var(--text2); font-weight:600; }
+    .stats-row { display:flex; gap:0.3rem; flex-wrap:wrap; margin-bottom:0.35rem; }
+    .stat-card { flex:1; min-width:70px; background:var(--card); border-radius:0.35rem; padding:0.35rem 0.4rem; text-align:center; border:2px solid var(--border); font-size:0.75rem; }
+    .stat-val { font-size:1.2rem; font-weight:700; }
+    .stat-lbl { font-size:0.65rem; color:var(--text2); font-weight:600; }
 
-    .section-title { font-size:0.75rem; font-weight:700; margin:0.2rem 0; display:flex; align-items:center; gap:0.25rem; }
+    .section-title { font-size:0.85rem; font-weight:700; margin:0.2rem 0; display:flex; align-items:center; gap:0.3rem; }
 
-    /* Summary Report Panel */
-    .report-overlay {
-      display:none; position:fixed; top:0;left:0;right:0;bottom:0;
-      background:rgba(0,0,0,0.6); z-index:9998; justify-content:center; align-items:center;
-    }
-    .report-overlay.show { display:flex; }
-    .report-modal {
-      background:var(--card); border-radius:0.8rem; padding:1.2rem;
-      max-width:900px; width:95%; max-height:85vh; overflow-y:auto;
-      box-shadow:0 15px 40px rgba(0,0,0,0.3);
-    }
-    .report-modal h2 {
-      font-size:1.1rem; margin-bottom:0.8rem; color:var(--accent2);
-      border-bottom:2px solid var(--border); padding-bottom:0.5rem;
-      display:flex; justify-content:space-between; align-items:center;
-    }
-    .report-modal .close-btn {
-      font-size:1.2rem; cursor:pointer; color:var(--text2);
-      background:none; border:none; padding:0.2rem 0.5rem;
-    }
-    .report-summary-cards {
-      display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.8rem;
-    }
-    .report-card {
-      flex:1; min-width:100px; background:var(--report-bg);
-      border-radius:0.5rem; padding:0.6rem; text-align:center;
-      border:2px solid var(--border);
-    }
-    .report-card .big-num { font-size:1.8rem; font-weight:700; }
-    .report-card .lbl { font-size:0.65rem; color:var(--text2); }
-    .report-table {
-      width:100%; border-collapse:collapse; font-size:0.7rem; margin-top:0.5rem;
-    }
-    .report-table th {
-      background:var(--input); padding:0.35rem; text-align:left;
-      font-weight:700; font-size:0.65rem; border-bottom:2px solid var(--accent);
-      position:sticky; top:0;
-    }
-    .report-table td {
-      padding:0.3rem 0.35rem; border-bottom:1px solid var(--border);
-    }
-    .report-table tr:hover td { background:var(--input); }
-    .report-table .highlight-row { background:#fef3c7; font-weight:600; }
-    .dark-mode .report-table .highlight-row { background:#78350f; }
+    .chart-container { background: var(--chart-bg); border-radius: 0.5rem; padding: 0.8rem; margin-bottom: 0.35rem; border: 2px solid var(--border); }
+    .chart-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem; color:var(--chart-text); }
+    .chart-header h3 { font-size:0.85rem; font-weight:600; }
+    .chart-legend { display:flex; gap:0.8rem; font-size:0.65rem; }
+    canvas { width:100%; height:200px; display:block; }
 
-    .chart-container {
-      background: var(--chart-bg); border-radius: 0.5rem;
-      padding: 0.8rem; margin-bottom: 0.3rem;
-      border: 2px solid var(--border);
-    }
-    .chart-header {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 0.5rem; color: var(--chart-text);
-    }
-    .chart-header h3 { font-size: 0.8rem; font-weight: 600; }
-    canvas { width: 100%; height: 200px; display: block; }
-    .chart-stats { display: flex; gap: 0.8rem; margin-top: 0.4rem; font-size: 0.65rem; color: var(--chart-text); }
-    .chart-stat { text-align: center; }
-    .chart-stat .val { font-size: 0.9rem; font-weight: 700; }
-    .chart-stat .lbl { font-size: 0.55rem; opacity: 0.7; }
-    .up-color { color: var(--chart-up); }
-    .down-color { color: var(--chart-down); }
-
+    /* TABLE */
     .table-wrapper {
-      overflow:auto; max-height:35vh; border-radius:0.3rem;
+      overflow:auto; max-height:45vh; border-radius:0.35rem;
       border:2px solid var(--border); background:var(--card); margin-bottom:0.2rem;
     }
-    table { width:100%; border-collapse:collapse; font-size:0.68rem; table-layout: fixed; }
+    table { width:100%; border-collapse:collapse; font-size:0.78rem; table-layout:fixed; }
     thead { position:sticky; top:0; z-index:10; }
     th {
-      padding:0.3rem 0.3rem; text-align:left; font-weight:700; font-size:0.62rem;
-      color:var(--text); border-bottom:2px solid var(--accent); white-space:nowrap;
+      padding:0.45rem 0.4rem; text-align:left; font-weight:700; font-size:0.7rem;
+      color:var(--text); border-bottom:3px solid var(--accent); white-space:nowrap;
       cursor:pointer; user-select:none; background:var(--input);
     }
+    th:hover { color:var(--accent2); }
+    th.sorted { color:var(--accent2); }
+    
     td {
-      padding:0.2rem 0.3rem; border-bottom:1px solid var(--border);
-      vertical-align:top; font-size:0.65rem; color:var(--text);
-      overflow:hidden; text-overflow:ellipsis;
+      padding:0.35rem 0.4rem; border-bottom:1px solid var(--border);
+      vertical-align:middle; font-size:0.75rem; color:var(--text);
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
     }
-    td:not(.desc-cell) { white-space:nowrap; }
-    td.desc-cell { white-space:normal; word-wrap:break-word; line-height:1.25; max-height:2.6em; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+    td.col-desc { white-space:normal; word-wrap:break-word; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; line-clamp:2; -webkit-box-orient:vertical; line-height:1.3; max-height:2.6em; }
+    td.col-info { text-align:center; }
+    
     tr:hover td { background:#edf2f7; }
     .dark-mode tr:hover td { background:#3d4a5c; }
     tr:nth-child(even) td { background:var(--input); }
 
-    .badge-cell { display:inline-block; padding:0.08rem 0.3rem; border-radius:0.25rem; font-size:0.58rem; font-weight:700; }
+    .badge-cell { display:inline-block; padding:0.1rem 0.35rem; border-radius:0.25rem; font-size:0.66rem; font-weight:700; }
     .badge-important { background:var(--badge-high-bg); color:var(--badge-high-text); }
     .badge-medium { background:var(--badge-med-bg); color:var(--badge-med-text); }
     .badge-low { background:var(--badge-low-bg); color:var(--badge-low-text); }
     .badge-completed { background:var(--badge-done-bg); color:var(--badge-done-text); }
     .badge-progress { background:var(--badge-active-bg); color:var(--badge-active-text); }
     .badge-notstarted { background:var(--badge-wait-bg); color:var(--badge-wait-text); }
-    .itsr-number { font-weight:700; font-family:'Courier New',monospace; font-size:0.68rem; background:var(--itsr-bg); color:var(--itsr-text); padding:0.06rem 0.3rem; border-radius:0.2rem; }
-    .info-icon { display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; background:var(--accent); color:#fff; border-radius:50%; font-size:0.65rem; font-weight:700; cursor:pointer; border:none; }
-    .assignee-avatars { display:flex; gap:0.08rem; }
-    .avatar { width:18px; height:18px; border-radius:50%; background:var(--accent2); color:#fff; font-size:0.5rem; font-weight:700; display:flex; align-items:center; justify-content:center; cursor:pointer; }
-    .avatar-more { background:var(--text2); color:#fff; font-size:0.45rem; }
-    .pagination { display:flex; gap:0.12rem; align-items:center; justify-content:center; margin-top:0.2rem; font-size:0.65rem; }
-    .page-btn { padding:0.18rem 0.35rem; border-radius:0.2rem; border:2px solid var(--border); background:var(--card); cursor:pointer; color:var(--text); font-size:0.62rem; font-weight:600; }
+    
+    .itsr-number { font-weight:700; font-family:'Courier New',monospace; font-size:0.75rem; background:var(--itsr-bg); color:var(--itsr-text); padding:0.08rem 0.35rem; border-radius:0.2rem; display:inline-block; }
+    .info-icon { display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; background:var(--accent); color:#fff; border-radius:50%; font-size:0.7rem; font-weight:700; cursor:pointer; border:none; }
+    
+    .assignee-avatars { display:flex; gap:0.08rem; align-items:center; }
+    .avatar { width:20px; height:20px; border-radius:50%; background:var(--accent2); color:#fff; font-size:0.55rem; font-weight:700; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+    .avatar-more { background:var(--text2); color:#fff; font-size:0.5rem; }
+
+    .pagination { display:flex; gap:0.15rem; align-items:center; justify-content:center; margin-top:0.2rem; font-size:0.75rem; }
+    .page-btn { padding:0.25rem 0.45rem; border-radius:0.25rem; border:2px solid var(--border); background:var(--card); cursor:pointer; color:var(--text); font-size:0.7rem; font-weight:600; }
     .page-btn.active { background:var(--accent); color:#fff; }
     .page-btn:disabled { opacity:0.4; }
 
-    .side-panel .panel-card { background:var(--card); border-radius:0.4rem; border:2px solid var(--border); padding:0.4rem; margin-bottom:0.3rem; }
-    .side-panel h3 { font-size:0.7rem; margin-bottom:0.2rem; color:var(--text2); }
-    .side-panel textarea { width:100%; min-height:45px; border:2px solid var(--border); border-radius:0.25rem; padding:0.25rem; font-family:'Courier New',monospace; font-size:0.6rem; background:var(--input); resize:vertical; color:var(--text); }
-    .upload-mini { border:2px dashed var(--border); border-radius:0.25rem; padding:0.3rem; text-align:center; cursor:pointer; font-size:0.65rem; color:var(--text2); }
-    .upload-mini:hover { border-color:var(--accent); }
+    .side-panel .panel-card { background:var(--card); border-radius:0.45rem; border:2px solid var(--border); padding:0.5rem; margin-bottom:0.35rem; }
+    .side-panel h3 { font-size:0.78rem; margin-bottom:0.2rem; color:var(--text2); }
+    .side-panel textarea { width:100%; min-height:50px; border:2px solid var(--border); border-radius:0.25rem; padding:0.3rem; font-family:'Courier New',monospace; font-size:0.7rem; background:var(--input); resize:vertical; color:var(--text); }
+    .upload-mini { border:2px dashed var(--border); border-radius:0.25rem; padding:0.4rem; text-align:center; cursor:pointer; font-size:0.75rem; color:var(--text2); }
     .hidden { display:none !important; }
+    .empty-state { text-align:center; padding:2rem; color:var(--text2); }
 
     .modal-overlay { display:none; position:fixed; top:0;left:0;right:0;bottom:0; background:rgba(0,0,0,0.5); z-index:9999; justify-content:center; align-items:center; }
     .modal-overlay.show { display:flex; }
-    .modal { background:var(--card); border-radius:0.5rem; padding:0.8rem; max-width:500px; width:94%; max-height:75vh; overflow-y:auto; }
-    .modal-close { float:right; font-size:1rem; cursor:pointer; color:var(--text2); background:none; border:none; }
-    .modal h3 { font-size:0.9rem; margin-bottom:0.5rem; color:var(--accent2); }
+    .modal { background:var(--card); border-radius:0.6rem; padding:1rem; max-width:550px; width:94%; max-height:75vh; overflow-y:auto; }
+    .modal-close { float:right; font-size:1.2rem; cursor:pointer; color:var(--text2); background:none; border:none; }
+    .modal h3 { font-size:1rem; margin-bottom:0.5rem; color:var(--accent2); }
+    .modal .field { margin-bottom:0.45rem; }
+    .modal .field-label { font-size:0.72rem; font-weight:700; color:var(--text2); text-transform:uppercase; }
+    .modal .field-value { font-size:0.82rem; color:var(--text); line-height:1.4; }
+    .chip { display:inline-block; background:var(--input); padding:0.08rem 0.3rem; border-radius:0.2rem; font-size:0.7rem; border:1px solid var(--border); margin:0.08rem; }
+    .chip.assignee-chip { background:var(--accent2); color:#fff; border:none; }
+    .chip.assignee-lead { background:var(--success); color:#fff; border:none; font-weight:700; }
+
+    .report-overlay { display:none; position:fixed; top:0;left:0;right:0;bottom:0; background:rgba(0,0,0,0.6); z-index:9998; justify-content:center; align-items:center; }
+    .report-overlay.show { display:flex; }
+    .report-modal { background:var(--card); border-radius:0.8rem; padding:1.2rem; max-width:950px; width:96%; max-height:85vh; overflow-y:auto; }
+    .report-modal h2 { font-size:1.2rem; margin-bottom:0.8rem; color:var(--accent2); border-bottom:2px solid var(--border); padding-bottom:0.5rem; }
+    .report-close-btn { font-size:1.2rem; cursor:pointer; color:var(--text2); background:none; border:none; }
+    .report-summary-cards { display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.8rem; }
+    .report-card { flex:1; min-width:100px; background:var(--report-bg); border-radius:0.5rem; padding:0.7rem; text-align:center; border:2px solid var(--border); }
+    .report-card .big-num { font-size:1.8rem; font-weight:700; }
+    .report-table-wrap { max-height:50vh; overflow:auto; }
+    .report-table { width:100%; border-collapse:collapse; font-size:0.75rem; }
+    .report-table th { background:var(--input); padding:0.45rem 0.55rem; text-align:left; font-weight:700; font-size:0.7rem; border-bottom:2px solid var(--accent); }
+    .report-table td { padding:0.4rem 0.55rem; border-bottom:1px solid var(--border); }
+    .report-table .highlight-row { background:#fef3c7; font-weight:600; }
+    .dark-mode .report-table .highlight-row { background:#78350f; }
 
     .loading { display:none; position:fixed; top:0;left:0;right:0;bottom:0; background:rgba(0,0,0,0.5); z-index:10000; justify-content:center; align-items:center; flex-direction:column; gap:0.5rem; }
     .loading.show { display:flex; }
-    .spinner { width:30px; height:30px; border:3px solid rgba(255,255,255,0.3); border-top-color:#fff; border-radius:50%; animation:spin 0.8s linear infinite; }
+    .spinner { width:35px; height:35px; border:4px solid rgba(255,255,255,0.3); border-top-color:#fff; border-radius:50%; animation:spin 0.8s linear infinite; }
     @keyframes spin { to{transform:rotate(360deg);} }
 
-    .dept-filter-buttons { display:flex; flex-wrap:wrap; gap:0.12rem; }
-    .dept-btn { padding:0.15rem 0.35rem; border-radius:0.25rem; border:2px solid var(--border); background:var(--card); cursor:pointer; font-size:0.6rem; font-weight:600; color:var(--text); }
+    .dept-filter-buttons { display:flex; flex-wrap:wrap; gap:0.15rem; }
+    .dept-btn { padding:0.2rem 0.4rem; border-radius:0.25rem; border:2px solid var(--border); background:var(--card); cursor:pointer; font-size:0.68rem; font-weight:600; color:var(--text); }
     .dept-btn.active { background:var(--accent); color:#fff; }
-    .clear-section { margin-top:0.3rem; padding-top:0.3rem; border-top:2px solid var(--danger); }
-    .danger-zone-label { font-size:0.55rem; color:var(--danger); font-weight:700; }
+    .clear-section { margin-top:0.35rem; padding-top:0.35rem; border-top:2px solid var(--danger); }
+    .danger-zone-label { font-size:0.6rem; color:var(--danger); font-weight:700; }
     .date-range-row { display:flex; gap:0.2rem; align-items:center; }
   </style>
 </head>
 <body>
   <div class="loading" id="loadingOverlay"><div class="spinner"></div><p class="loading-text">Processing...</p></div>
-
-  <!-- Summary Report Modal -->
-  <div class="report-overlay" id="reportOverlay">
-    <div class="report-modal">
-      <h2>
-        <span id="reportTitle">📊 Summary Report</span>
-        <button class="close-btn" onclick="closeReport()">✕</button>
-      </h2>
-      <div class="report-summary-cards" id="reportSummaryCards"></div>
-      <div style="max-height:50vh;overflow:auto;">
-        <table class="report-table" id="reportTable">
-          <thead id="reportTableHead"></thead>
-          <tbody id="reportTableBody"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- Detail Modal -->
-  <div class="modal-overlay" id="detailModal">
-    <div class="modal">
-      <button class="modal-close" onclick="closeModal()">✕</button>
-      <h3 id="modalTitle">📋 Details</h3>
-      <div id="modalContent"></div>
-    </div>
-  </div>
+  <div class="report-overlay" id="reportOverlay"><div class="report-modal"><h2><span id="reportTitle"></span><button class="report-close-btn" onclick="closeReport()">✕</button></h2><div class="report-summary-cards" id="reportSummaryCards"></div><div class="report-table-wrap"><table class="report-table"><thead id="reportTableHead"></thead><tbody id="reportTableBody"></tbody></table></div></div></div>
+  <div class="modal-overlay" id="detailModal"><div class="modal"><button class="modal-close" onclick="closeModal()">✕</button><h3 id="modalTitle"></h3><div id="modalContent"></div></div></div>
 
   <div class="app">
     <header class="app-header">
-      <div style="display:flex;align-items:center;gap:0.3rem;">
-        <h1>📋 HRF 33 - IT Service Request</h1>
-        <span class="badge badge-count" id="recordCount">0</span>
-        <span class="badge badge-saved" id="savedIndicator" style="display:none;">💾 Saved</span>
-      </div>
-      <button onclick="toggleDark()" style="font-size:0.9rem;cursor:pointer;background:var(--card);border:2px solid var(--border);padding:0.15rem 0.35rem;border-radius:0.3rem;color:var(--text);font-weight:700;">🌓</button>
+      <div style="display:flex;align-items:center;gap:0.4rem;"><h1>📋 HRF 33 - IT Service Request</h1><span class="badge badge-count" id="recordCount">0</span></div>
+      <button onclick="toggleDark()" style="font-size:1rem;cursor:pointer;background:var(--card);border:2px solid var(--border);padding:0.2rem 0.4rem;border-radius:0.35rem;color:var(--text);font-weight:700;">🌓</button>
     </header>
 
     <div class="main-layout">
       <div class="main-content">
-        <div class="chart-container">
-          <div class="chart-header">
-            <h3>📊 Activity Monitoring</h3>
-          </div>
-          <canvas id="activityChart"></canvas>
-          <div class="chart-stats" id="chartStats"></div>
-        </div>
+        <div class="chart-container"><div class="chart-header"><h3>📈 Activity Trend</h3><div class="chart-legend"><span><span class="legend-dot" style="background:var(--chart-line1);"></span> Created</span><span><span class="legend-dot" style="background:var(--chart-line2);"></span> Started</span><span><span class="legend-dot" style="background:var(--chart-line3);"></span> Completed</span></div></div><canvas id="activityChart"></canvas></div>
 
         <div class="controls-bar">
-          <div class="tabs">
-            <button class="tab active" data-tab="all">All</button>
-            <button class="tab" data-tab="pending-it">Pending IT</button>
-            <button class="tab" data-tab="pending-hrf">Pending HRF</button>
-            <button class="tab" data-tab="cancelled">Cancelled</button>
-            <button class="tab" data-tab="served">Served</button>
-            <button class="tab" data-tab="accomplished">Accomplished</button>
-          </div>
+          <div class="tabs"><button class="tab active" data-tab="all">All</button><button class="tab" data-tab="pending-it">Pending IT</button><button class="tab" data-tab="pending-hrf">Pending HRF</button><button class="tab" data-tab="cancelled">Cancelled</button><button class="tab" data-tab="served">Served</button></div>
           <input type="text" id="searchInput" placeholder="🔍 Search...">
-          <!-- Summary Report Buttons -->
-          <button class="btn btn-info" id="weeklyReportBtn" title="Weekly Summary">📊 Weekly</button>
-          <button class="btn btn-warning" id="monthlyReportBtn" title="Monthly Summary">📆 Monthly</button>
-          <button class="btn btn-success" id="quarterlyReportBtn" title="Quarterly Summary">📈 Quarterly</button>
-          <button class="btn btn-outline" id="exportXlsxBtn">📥 Excel</button>
-          <button class="btn btn-outline" id="exportCsvBtn">📥 CSV</button>
+          <button class="btn btn-info" id="weeklyReportBtn">📊 Wk</button><button class="btn btn-warning" id="monthlyReportBtn">📆 Mo</button><button class="btn btn-success" id="quarterlyReportBtn">📈 Qtr</button>
+          <button class="btn btn-outline" id="exportXlsxBtn">📥 Excel</button><button class="btn btn-outline" id="exportCsvBtn">CSV</button>
         </div>
 
         <div class="controls-bar">
-          <span style="font-size:0.65rem;font-weight:600;">📅 Date Range:</span>
-          <div class="date-range-row">
-            <label>From:</label><input type="date" id="dateFrom">
-            <label>To:</label><input type="date" id="dateTo">
-          </div>
-          <select id="dateTypeFilter">
-            <option value="createdDate">Received</option>
-            <option value="dueDate">Approved</option>
-            <option value="startDate">Routed</option>
-            <option value="completedDate">Completed</option>
-          </select>
-          <button class="btn btn-outline" id="clearDateBtn" style="font-size:0.6rem;">Clear</button>
+          <span style="font-size:0.75rem;font-weight:600;">📅</span>
+          <div class="date-range-row"><label>From:</label><input type="date" id="dateFrom"><label>To:</label><input type="date" id="dateTo"></div>
+          <select id="dateTypeFilter"><option value="createdDate">Received</option><option value="dueDate">Approved</option><option value="startDate">Routed</option><option value="completedDate">Completed</option></select>
+          <button class="btn btn-outline" id="clearDateBtn" style="font-size:0.7rem;">Clear</button>
         </div>
 
         <div class="stats-row" id="statsRow"></div>
         <div class="section-title">📋 Requests <span class="badge badge-count" id="taskCount">0</span></div>
+
         <div class="table-wrapper">
           <table id="taskTable">
             <colgroup>
-              <col style="width:65px;"><col style="width:140px;"><col style="width:70px;">
-              <col style="width:65px;"><col style="width:58px;"><col style="width:75px;">
-              <col style="width:65px;"><col style="width:65px;"><col style="width:60px;">
-              <col style="width:65px;"><col style="width:55px;"><col style="width:24px;">
+              <col style="width:72px;">   <!-- ITSR # -->
+              <col style="width:auto;">   <!-- Description -->
+              <col style="width:85px;">   <!-- Dept/Project -->
+              <col style="width:78px;">   <!-- Status -->
+              <col style="width:70px;">   <!-- Severity -->
+              <col style="width:85px;">   <!-- Assignee -->
+              <col style="width:75px;">   <!-- Received -->
+              <col style="width:75px;">   <!-- Approved -->
+              <col style="width:68px;">   <!-- Routed -->
+              <col style="width:75px;">   <!-- Done -->
+              <col style="width:68px;">   <!-- By -->
+              <col style="width:28px;">   <!-- Info -->
             </colgroup>
             <thead>
               <tr>
@@ -328,8 +247,8 @@
                 <th data-sort="dueDate">Approved</th>
                 <th data-sort="startDate">Routed</th>
                 <th data-sort="completedDate">Done</th>
-                <th data-sort="completedBy">By</th>
-                <th>ℹ</th>
+                <th data-sort="completedBy">Done By</th>
+                <th></th>
               </tr>
             </thead>
             <tbody id="taskBody"></tbody>
@@ -339,38 +258,18 @@
       </div>
 
       <div class="side-panel">
-        <div class="panel-card">
-          <h3>📁 Upload Data</h3>
-          <div class="upload-mini" id="dropZone">Drop .xlsx/.csv here</div>
-          <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" hidden>
-          <textarea id="pasteInput" placeholder="Or paste data..." style="margin-top:0.2rem;"></textarea>
-          <button class="btn btn-primary" id="loadPasteBtn" style="width:100%;margin-top:0.15rem;">✨ Load Data</button>
-          <button class="btn btn-outline" id="sampleBtn" style="width:100%;margin-top:0.1rem;">📊 Load Samples</button>
-        </div>
-        <div class="panel-card">
-          <h3>🏢 Dept/Project</h3>
-          <div class="dept-filter-buttons" id="deptFilterButtons"></div>
-        </div>
-        <div class="panel-card">
-          <h3>📊 Status/Priority</h3>
-          <select id="statusFilter" style="width:100%;margin-bottom:0.15rem;"><option value="">All Status</option></select>
-          <select id="priorityFilter" style="width:100%;"><option value="">All Priority</option></select>
-        </div>
-        <div class="panel-card clear-section">
-          <div class="danger-zone-label">⚠️ Danger Zone</div>
-          <p style="font-size:0.55rem;color:var(--text2);margin-bottom:0.15rem;">Permanently delete all records.</p>
-          <button class="btn btn-danger" id="clearBtn" style="width:100%;">🗑️ Clear All Data</button>
-        </div>
+        <div class="panel-card"><h3>📁 Upload</h3><div class="upload-mini" id="dropZone">Drop .xlsx/.csv</div><input type="file" id="fileInput" accept=".xlsx,.xls,.csv" hidden><textarea id="pasteInput" placeholder="Paste data..."></textarea><button class="btn btn-primary" id="loadPasteBtn" style="width:100%;margin-top:0.15rem;">✨ Load</button><button class="btn btn-outline" id="sampleBtn" style="width:100%;margin-top:0.1rem;">📊 Samples</button></div>
+        <div class="panel-card"><h3>🏢 Dept/Project</h3><div class="dept-filter-buttons" id="deptFilterButtons"></div></div>
+        <div class="panel-card"><h3>📊 Status/Priority</h3><select id="statusFilter" style="width:100%;margin-bottom:0.15rem;"><option value="">All Status</option></select><select id="priorityFilter" style="width:100%;"><option value="">All Priority</option></select></div>
+        <div class="panel-card clear-section"><div class="danger-zone-label">⚠️ Danger Zone</div><p style="font-size:0.6rem;color:var(--text2);margin-bottom:0.1rem;">Delete all records.</p><button class="btn btn-danger" id="clearBtn" style="width:100%;">🗑️ Clear All</button></div>
       </div>
     </div>
   </div>
 
   <script>
-    // ========== PERMANENT DATABASE ==========
-    const DB_NAME = 'HRF33_ITSR_Database';
-    const DB_VERSION = 1;
+    const DB_NAME = 'HRF33_FINAL_v5', DB_VERSION = 1;
     let db, allRecords = [], filteredRecords = [];
-    let currentPage = 1, PAGE_SIZE = 30;
+    let currentPage = 1, PAGE_SIZE = 25;
     let currentSort = { field: 'taskName', dir: 'asc' };
     let currentDept = '', currentTab = 'all';
 
@@ -409,323 +308,230 @@
       return { parse: parseXLSX };
     })();
 
-    function openDB() {
-      return new Promise((resolve, reject) => {
-        const request = indexedDB.open(DB_NAME, DB_VERSION);
-        request.onupgradeneeded = (e) => { if (!e.target.result.objectStoreNames.contains('records')) e.target.result.createObjectStore('records', { keyPath: 'id', autoIncrement: true }); };
-        request.onsuccess = (e) => { db = e.target.result; resolve(db); };
-        request.onerror = reject;
-      });
-    }
-    function saveToDB(records) {
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction('records', 'readwrite');
-        const store = tx.objectStore('records');
-        store.clear();
-        records.forEach((r, i) => store.put({ ...r, id: i + 1 }));
-        tx.oncomplete = () => { showSavedIndicator(); resolve(); };
-        tx.onerror = reject;
-      });
-    }
-    function loadFromDB() {
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction('records', 'readonly');
-        tx.objectStore('records').getAll().onsuccess = e => resolve(e.target.result || []);
-        tx.onerror = reject;
-      });
-    }
-    function clearDB() {
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction('records', 'readwrite');
-        tx.objectStore('records').clear();
-        tx.oncomplete = () => { hideSavedIndicator(); resolve(); };
-        tx.onerror = reject;
-      });
-    }
-    function showSavedIndicator() { const el = document.getElementById('savedIndicator'); if(el) { el.style.display='inline-block'; setTimeout(()=>el.style.display='none',2000); } }
-    function hideSavedIndicator() { const el = document.getElementById('savedIndicator'); if(el) el.style.display='none'; }
+    function openDB() { return new Promise((res, rej) => { const r = indexedDB.open(DB_NAME, DB_VERSION); r.onupgradeneeded = e => { if (!e.target.result.objectStoreNames.contains('recs')) e.target.result.createObjectStore('recs', { keyPath: 'id', autoIncrement: true }); }; r.onsuccess = e => { db = e.target.result; res(db); }; r.onerror = rej; }); }
+    function saveDB(recs) { return new Promise((res, rej) => { const tx = db.transaction('recs', 'readwrite'); const st = tx.objectStore('recs'); st.clear(); recs.forEach((r, i) => st.put({ ...r, id: i + 1 })); tx.oncomplete = res; tx.onerror = rej; }); }
+    function loadDB() { return new Promise((res, rej) => { const tx = db.transaction('recs', 'readonly'); tx.objectStore('recs').getAll().onsuccess = e => res(e.target.result || []); tx.onerror = rej; }); }
+    function clearDB() { return new Promise((res, rej) => { const tx = db.transaction('recs', 'readwrite'); tx.objectStore('recs').clear(); tx.oncomplete = res; tx.onerror = rej; }); }
 
-    function extractNumber(f) { const n=f.match(/#\s*(\d+)/); if(n)return'#'+n[1]; const i=f.match(/IT\s*-\s*(\d+)/); if(i)return'#IT'+i[1]; return f.substring(0,8); }
+    function extractNumber(f) { const n = f.match(/#\s*(\d+)/); if (n) return '#' + n[1]; const i = f.match(/IT\s*-\s*(\d+)/); if (i) return '#IT' + i[1]; return f.substring(0, 8); }
     function extractITSR(raw) {
-      if(!raw)return{itsrNumber:'',itsrShort:'',taskName:''};
-      const p=[/(IT\s*Service\s*Request\s*#\s*\d+)\s*from\s*(.*?)\s*re\.?\s*:\s*(.*)/i,/(ITSR\s*#\s*\d+)\s*:\s*(.*?)\s*-\s*(.*)/i,/(ITSR\s*#\s*\d+)\s*:\s*(.*)/i,/(IT\s*-\s*\d+)\s*:\s*(.*?)\s*-\s*(.*)/i,/(IT\s*-\s*\d+)\s*:\s*(.*)/i];
-      for(const x of p){const m=raw.match(x);if(m)return{itsrNumber:m[1].trim(),itsrShort:extractNumber(m[1]),taskName:(m[3]||m[2]||'').trim()||raw.trim()};}
-      return{itsrNumber:'',itsrShort:raw.substring(0,8),taskName:raw.trim()};
+      if (!raw) return { itsrNumber: '', itsrShort: '', taskName: '' };
+      const p = [/(IT\s*Service\s*Request\s*#\s*\d+)\s*from\s*(.*?)\s*re\.?\s*:\s*(.*)/i, /(ITSR\s*#\s*\d+)\s*:\s*(.*?)\s*-\s*(.*)/i, /(ITSR\s*#\s*\d+)\s*:\s*(.*)/i, /(IT\s*-\s*\d+)\s*:\s*(.*?)\s*-\s*(.*)/i, /(IT\s*-\s*\d+)\s*:\s*(.*)/i];
+      for (const x of p) { const m = raw.match(x); if (m) return { itsrNumber: m[1].trim(), itsrShort: extractNumber(m[1]), taskName: (m[3] || m[2] || '').trim() || raw.trim() }; }
+      return { itsrNumber: '', itsrShort: raw.substring(0, 8), taskName: raw.trim() };
     }
 
     function parseCSV(text) {
-      const lines=text.split(/\r?\n/).filter(l=>l.trim()); if(lines.length<2)return[];
-      const h=lines[0]; let d='\t'; if((h.match(/,/g)||[]).length>(h.match(/\t/g)||[]).length)d=',';
-      function sp(l){const r=[];let c='',q=false;for(let i=0;i<l.length;i++){if(l[i]==='"'){q=!q;continue;}if(l[i]===d&&!q){r.push(c.trim());c='';}else c+=l[i];}r.push(c.trim());return r;}
-      const hd=sp(lines[0]).map(x=>x.toLowerCase().replace(/[^a-z0-9]/g,''));
-      function idx(nn){for(const n of nn){const c=n.toLowerCase().replace(/[^a-z0-9]/g,'');const i=hd.findIndex(h=>h.includes(c));if(i!==-1)return i;}return-1;}
-      function get(c,i,fb){if(i!==-1&&i<c.length)return c[i]||'';if(fb!==undefined&&fb<c.length)return c[fb]||'';return'';}
-      const cm={taskId:idx(['taskid','itsrno']),taskNameRaw:idx(['taskname','requestdescription']),bucket:idx(['bucketdept','bucket','dept','project']),status:idx(['status']),priority:idx(['priority','severity']),assignedTo:idx(['assignedto','assignee']),createdDate:idx(['datereceived','createddate']),dueDate:idx(['dateapproved','duedate']),startDate:idx(['daterouted','startdate']),completedDate:idx(['completeddate','completed']),completedBy:idx(['completedby']),labels:idx(['labels']),notes:idx(['notes','itremarks'])};
-      const recs=[];
-      for(let i=1;i<lines.length;i++){const c=sp(lines[i]);if(c.length<2||c.every(x=>!x))continue;const raw=get(c,cm.taskNameRaw,1);const{itsrNumber,itsrShort,taskName}=extractITSR(raw||'');if(!taskName&&!itsrNumber)continue;const cd=get(c,cm.createdDate,3),dr=get(c,cm.dueDate,4),sd=get(c,cm.startDate,8),compd=get(c,cm.completedDate,13);recs.push({taskId:get(c,cm.taskId,0),itsrNumber,itsrShort,taskName,bucket:get(c,cm.bucket,2)||'',status:get(c,cm.status,4)||'Pending',priority:get(c,cm.priority,11)||'Normal',assignedTo:get(c,cm.assignedTo,7),createdDate:cd,dueDate:dr||cd,startDate:sd,completedDate:compd,completedBy:get(c,cm.completedBy,14),labels:get(c,cm.labels,13),notes:get(c,cm.notes,13)});}
-      return recs;
+      const lines = text.split(/\r?\n/).filter(l => l.trim()); 
+      if (lines.length < 2) return [];
+      
+      const h = lines[0]; 
+      let d = '\t'; 
+      if ((h.match(/,/g) || []).length > (h.match(/\t/g) || []).length) d = ',';
+      
+      function sp(l) { const r = []; let c = '', q = false; for (let i = 0; i < l.length; i++) { if (l[i] === '"') { q = !q; continue; } if (l[i] === d && !q) { r.push(c.trim()); c = ''; } else c += l[i]; } r.push(c.trim()); return r; }
+      
+      const headers = sp(lines[0]);
+      console.log('📋 Headers found:', headers);
+      
+      // FIXED: Match columns by EXACT position from your template
+      // Your template: Task ID | Task Name | Bucket/dept | Goal | Status | Priority | Assigned To | Created By | Created Date | Due date | Start date | Is Recurring | Late | Completed Date | Completed By | Completed Checklist Items | Checklist Items | Labels | Notes
+      
+      const records = [];
+      for (let i = 1; i < lines.length; i++) {
+        const cols = sp(lines[i]);
+        if (cols.length < 3 || cols.every(x => !x)) continue;
+        
+        // Extract ITSR from Task Name (column B, index 1)
+        const rawTaskName = cols[1] || '';
+        const { itsrNumber, itsrShort, taskName } = extractITSR(rawTaskName);
+        if (!taskName && !itsrNumber) continue;
+        
+        const createdDate = cols[8] || '';   // I = Created Date
+        const dueDateRaw = cols[9] || '';     // J = Due date
+        const startDate = cols[10] || '';      // K = Start date
+        const completedDate = cols[13] || '';  // N = Completed Date
+        const completedBy = cols[14] || '';    // O = Completed By
+        const assignedTo = cols[6] || '';      // G = Assigned To
+        
+        records.push({
+          taskId: cols[0] || '',              // A = Task ID
+          itsrNumber,
+          itsrShort,
+          taskName,
+          bucket: cols[2] || '',              // C = Bucket/dept
+          status: cols[4] || 'Pending',       // E = Status
+          priority: cols[5] || 'Normal',      // F = Priority
+          assignedTo: assignedTo,
+          createdBy: cols[7] || '',           // H = Created By
+          createdDate: createdDate,
+          dueDate: dueDateRaw || createdDate,  // Fallback to created date
+          startDate: startDate,
+          completedDate: completedDate,
+          completedBy: completedBy || (completedDate ? assignedTo.split(';;')[0]?.trim() : ''),
+          completedChecklist: cols[15] || '',  // P = Completed Checklist Items
+          totalChecklist: cols[16] || '',      // Q = Checklist Items
+          labels: cols[17] || '',              // R = Labels
+          notes: cols[18] || '',               // S = Notes
+        });
+      }
+      
+      console.log(`✅ Parsed ${records.length} records`);
+      return records;
     }
 
-    async function parseFile(file) {
-      const ext=file.name.split('.').pop().toLowerCase();
-      if(ext==='csv'||ext==='txt')return parseCSV(await file.text());
-      if(ext==='xlsx'||ext==='xls'){try{const t=await MiniXLSX.parse(await file.arrayBuffer());if(t?.trim()){const r=parseCSV(t);if(r.length)return r;}}catch(e){}try{const t=new TextDecoder().decode(new Uint8Array(await file.arrayBuffer()));const l=t.split(/\n/).filter(x=>x.includes('\t')||x.includes(','));if(l.length>=2)return parseCSV(l.join('\n'));}catch(e){}throw new Error('Cannot read XLSX. Save as CSV.');}
-      throw new Error('Unsupported file');
-    }
+    async function parseFile(file) { const ext = file.name.split('.').pop().toLowerCase(); if (ext === 'csv' || ext === 'txt') return parseCSV(await file.text()); if (ext === 'xlsx' || ext === 'xls') { try { const t = await MiniXLSX.parse(await file.arrayBuffer()); if (t?.trim()) { const r = parseCSV(t); if (r.length) return r; } } catch (e) {} try { const t = new TextDecoder().decode(new Uint8Array(await file.arrayBuffer())); const l = t.split(/\n/).filter(x => x.includes('\t') || x.includes(',')); if (l.length >= 2) return parseCSV(l.join('\n')); } catch (e) {} throw new Error('Cannot read XLSX. Save as CSV from Excel.'); } throw new Error('Unsupported file'); }
 
-    function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML;}
-    function statusBadge(s){const sl=(s||'').toLowerCase();if(/complete|done|served/.test(sl))return'<span class="badge-cell badge-completed">✅ Done</span>';if(/progress|active/.test(sl))return'<span class="badge-cell badge-progress">🔄 Active</span>';if(/cancel/.test(sl))return'<span class="badge-cell badge-important">❌ Cancelled</span>';return'<span class="badge-cell badge-notstarted">⏳ Pending</span>';}
-    function priorityBadge(p){const pl=(p||'').toLowerCase();if(/important|high|critical|urgent/.test(pl))return'<span class="badge-cell badge-important">🔴 Urgent</span>';if(/low/.test(pl))return'<span class="badge-cell badge-low">🟢 Low</span>';return'<span class="badge-cell badge-medium">🟡 Normal</span>';}
-    function assigneeDisplay(str){if(!str)return'—';const parts=str.split(/;;|;/).map(s=>s.trim()).filter(Boolean);if(!parts.length)return'—';const colors=['#7c3aed','#2563eb','#059669'];const shown=parts.slice(0,2);const av=shown.map((p,i)=>{const ini=p.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();return`<span class="avatar" style="background:${colors[i%3]};" title="${esc(p)}">${ini}</span>`;}).join('');const more=parts.length>2?`<span class="avatar avatar-more">+${parts.length-2}</span>`:'';return`<span class="assignee-avatars">${av}${more}</span>`;}
+    function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+    function statusBadge(s) { const sl = (s || '').toLowerCase(); if (/complete|done|served/.test(sl)) return '<span class="badge-cell badge-completed">✅ Done</span>'; if (/progress|active/.test(sl)) return '<span class="badge-cell badge-progress">🔄 Active</span>'; if (/cancel/.test(sl)) return '<span class="badge-cell badge-important">❌ Cancel</span>'; return '<span class="badge-cell badge-notstarted">⏳ Pending</span>'; }
+    function priorityBadge(p) { const pl = (p || '').toLowerCase(); if (/important|high|critical|urgent/.test(pl)) return '<span class="badge-cell badge-important">🔴 Urgent</span>'; if (/low|minor/.test(pl)) return '<span class="badge-cell badge-low">🟢 Low</span>'; return '<span class="badge-cell badge-medium">🟡 Normal</span>'; }
+    function assigneeDisplay(str) { if (!str) return '—'; const parts = str.split(/;;|;/).map(s => s.trim()).filter(Boolean); if (!parts.length) return '—'; const colors = ['#7c3aed', '#2563eb', '#059669']; const shown = parts.slice(0, 3); const av = shown.map((p, i) => { const ini = p.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase(); return `<span class="avatar" style="background:${colors[i%3]};" title="${esc(p)}">${ini}</span>`; }).join(''); const more = parts.length > 3 ? `<span class="avatar avatar-more" title="${esc(parts.slice(3).join(', '))}">+${parts.length-3}</span>` : ''; return `<span class="assignee-avatars">${av}${more}</span>`; }
 
     function showDetail(task) {
-      const aa=(task.assignedTo||'').split(/;;|;/).filter(Boolean);
-      document.getElementById('modalTitle').textContent=`${esc(task.itsrShort)} - ${esc(task.taskName.substring(0,40))}`;
-      document.getElementById('modalContent').innerHTML=`
-        <div class="field"><div class="field-label">ITSR No.</div><div class="field-value">${esc(task.itsrNumber)||esc(task.itsrShort)}</div></div>
-        <div class="field"><div class="field-label">Dept/Project</div><div class="field-value">${esc(task.bucket)}</div></div>
+      const aa = (task.assignedTo || '').split(/;;|;/).filter(Boolean);
+      document.getElementById('modalTitle').textContent = `${esc(task.itsrShort)} - ${esc(task.taskName.substring(0, 50))}`;
+      document.getElementById('modalContent').innerHTML = `
+        <div class="field"><div class="field-label">Service Code</div><div class="field-value" style="font-weight:700;">${esc(task.taskId)||'—'}</div></div>
+        <div class="field"><div class="field-label">ITSR # (Full)</div><div class="field-value">${esc(task.itsrNumber)||esc(task.itsrShort)}</div></div>
         <div class="field"><div class="field-label">Full Description</div><div class="field-value" style="font-weight:600;white-space:pre-wrap;">${esc(task.taskName)}</div></div>
+        <div class="field"><div class="field-label">Dept/Project</div><div class="field-value">${esc(task.bucket)}</div></div>
         <div class="field"><div class="field-label">Status / Severity</div><div class="field-value">${statusBadge(task.status)} ${priorityBadge(task.priority)}</div></div>
-        <div class="field"><div class="field-label">Assignees</div><div class="field-value">${aa.length?aa.map((a,i)=>i===0?`<span class="chip assignee-lead">⭐ ${esc(a)}</span>`:`<span class="chip assignee-chip">👤 ${esc(a)}</span>`).join(' '):'—'}</div></div>
+        <div class="field" style="background:var(--input);padding:0.6rem;border-radius:0.3rem;"><div class="field-label">All Assignees (${aa.length})</div><div class="field-value">${aa.length?aa.map((a,i)=>i===0?`<span class="chip assignee-lead">⭐ ${esc(a)}</span>`:`<span class="chip assignee-chip">👤 ${esc(a)}</span>`).join(' '):'—'}</div></div>
         <div class="field"><div class="field-label">Dates</div><div class="field-value">Received: ${esc(task.createdDate)} | Approved: ${esc(task.dueDate)} | Routed: ${esc(task.startDate)}</div></div>
         <div class="field"><div class="field-label">Completed</div><div class="field-value">${esc(task.completedDate)||'—'} by ${esc(task.completedBy)||'—'}</div></div>
-        <div class="field"><div class="field-label">IT Remarks</div><div class="field-value">${esc(task.notes)||esc(task.labels)||'—'}</div></div>`;
+        <div class="field"><div class="field-label">Remarks</div><div class="field-value">${esc(task.notes)||'—'}</div></div>`;
       document.getElementById('detailModal').classList.add('show');
     }
-    function closeModal(){document.getElementById('detailModal').classList.remove('show');}
+    function closeModal() { document.getElementById('detailModal').classList.remove('show'); }
 
-    function getStatusCat(s){const sl=(s||'').toLowerCase();if(/cancel/.test(sl))return'cancelled';if(/complete|done|served/.test(sl))return'served';if(/progress|active/.test(sl))return'pending-it';if(/approv|hrf/.test(sl))return'pending-hrf';if(/accomplish/.test(sl))return'accomplished';return'other';}
-
-    // ========== SUMMARY REPORTS ==========
-    function getQuarter(d) {
-      const dt = new Date(d);
-      if (isNaN(dt.getTime())) return null;
-      return `${dt.getFullYear()}-Q${Math.ceil((dt.getMonth()+1)/3)}`;
-    }
-    function getMonthKey(d) {
-      const dt = new Date(d);
-      if (isNaN(dt.getTime())) return null;
-      return `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}`;
-    }
-    function getWeekKey(d) {
-      const dt = new Date(d);
-      if (isNaN(dt.getTime())) return null;
-      const jan1 = new Date(dt.getFullYear(), 0, 1);
-      const days = Math.floor((dt - jan1) / 86400000);
-      const wk = Math.ceil((days + jan1.getDay() + 1) / 7);
-      return `${dt.getFullYear()}-W${String(wk).padStart(2,'0')}`;
-    }
-
-    function generateReport(periodType) {
-      const records = filteredRecords.length ? filteredRecords : allRecords;
-      if (!records.length) { alert('No data to generate report!'); return; }
-
-      let groupFn, labelFn, title;
-      if (periodType === 'weekly') {
-        groupFn = r => r.completedDate ? getWeekKey(r.completedDate) : (r.createdDate ? getWeekKey(r.createdDate) : null);
-        labelFn = k => k ? k.replace('-W', ' Week ') : 'No Date';
-        title = '📊 Weekly Summary Report';
-      } else if (periodType === 'monthly') {
-        groupFn = r => r.completedDate ? getMonthKey(r.completedDate) : (r.createdDate ? getMonthKey(r.createdDate) : null);
-        labelFn = k => {
-          if (!k) return 'No Date';
-          const [y, m] = k.split('-');
-          return `${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][parseInt(m)-1]} ${y}`;
-        };
-        title = '📆 Monthly Summary Report';
-      } else { // quarterly
-        groupFn = r => r.completedDate ? getQuarter(r.completedDate) : (r.createdDate ? getQuarter(r.createdDate) : null);
-        labelFn = k => k || 'No Date';
-        title = '📈 Quarterly Summary Report';
-      }
-
-      // Group records
-      const groups = {};
-      records.forEach(r => {
-        const key = groupFn(r) || 'No Date';
-        if (!groups[key]) groups[key] = { total: 0, completed: 0, inProgress: 0, pending: 0, cancelled: 0, urgent: 0, items: [] };
-        groups[key].total++;
-        groups[key].items.push(r);
-        const st = (r.status || '').toLowerCase();
-        if (/complete|done|served/.test(st)) groups[key].completed++;
-        else if (/progress|active/.test(st)) groups[key].inProgress++;
-        else if (/cancel/.test(st)) groups[key].cancelled++;
-        else groups[key].pending++;
-        if (/urgent|high|important/.test((r.priority || '').toLowerCase())) groups[key].urgent++;
-      });
-
-      const sortedKeys = Object.keys(groups).sort((a, b) => {
-        if (a === 'No Date') return 1;
-        if (b === 'No Date') return -1;
-        return b.localeCompare(a);
-      });
-
-      // Calculate totals
-      const totals = { total: records.length, completed: 0, inProgress: 0, pending: 0, cancelled: 0, urgent: 0 };
-      Object.values(groups).forEach(g => {
-        totals.completed += g.completed;
-        totals.inProgress += g.inProgress;
-        totals.pending += g.pending;
-        totals.cancelled += g.cancelled;
-        totals.urgent += g.urgent;
-      });
-
-      // Render report
-      document.getElementById('reportTitle').textContent = title;
-      document.getElementById('reportSummaryCards').innerHTML = `
-        <div class="report-card"><div class="big-num">${totals.total}</div><div class="lbl">Total</div></div>
-        <div class="report-card"><div class="big-num" style="color:var(--success)">${totals.completed}</div><div class="lbl">Completed</div></div>
-        <div class="report-card"><div class="big-num" style="color:var(--accent)">${totals.inProgress}</div><div class="lbl">In Progress</div></div>
-        <div class="report-card"><div class="big-num" style="color:var(--warning)">${totals.pending}</div><div class="lbl">Pending</div></div>
-        <div class="report-card"><div class="big-num" style="color:var(--danger)">${totals.cancelled}</div><div class="lbl">Cancelled</div></div>
-        <div class="report-card"><div class="big-num" style="color:#dc2626">${totals.urgent}</div><div class="lbl">Urgent</div></div>
-        <div class="report-card"><div class="big-num">${sortedKeys.length}</div><div class="lbl">Periods</div></div>
-      `;
-
-      document.getElementById('reportTableHead').innerHTML = `
-        <tr>
-          <th>Period</th><th>Total</th><th>Completed</th><th>In Progress</th>
-          <th>Pending</th><th>Cancelled</th><th>Urgent</th><th>Completion %</th>
-        </tr>`;
-
-      document.getElementById('reportTableBody').innerHTML = sortedKeys.map(k => {
-        const g = groups[k];
-        const rate = g.total ? Math.round((g.completed / g.total) * 100) : 0;
-        return `<tr>
-          <td><strong>${labelFn(k)}</strong></td>
-          <td>${g.total}</td>
-          <td style="color:var(--success)">${g.completed}</td>
-          <td style="color:var(--accent)">${g.inProgress}</td>
-          <td style="color:var(--warning)">${g.pending}</td>
-          <td style="color:var(--danger)">${g.cancelled}</td>
-          <td>${g.urgent}</td>
-          <td><strong>${rate}%</strong></td>
-        </tr>`;
-      }).join('') + `<tr class="highlight-row">
-        <td><strong>TOTAL</strong></td>
-        <td><strong>${totals.total}</strong></td>
-        <td><strong style="color:var(--success)">${totals.completed}</strong></td>
-        <td><strong style="color:var(--accent)">${totals.inProgress}</strong></td>
-        <td><strong style="color:var(--warning)">${totals.pending}</strong></td>
-        <td><strong style="color:var(--danger)">${totals.cancelled}</strong></td>
-        <td><strong>${totals.urgent}</strong></td>
-        <td><strong>${totals.total ? Math.round((totals.completed/totals.total)*100) : 0}%</strong></td>
-      </tr>`;
-
-      document.getElementById('reportOverlay').classList.add('show');
-    }
-
-    function closeReport() {
-      document.getElementById('reportOverlay').classList.remove('show');
-    }
+    function getStatusCat(s) { const sl = (s || '').toLowerCase(); if (/cancel/.test(sl)) return 'cancelled'; if (/complete|done|served/.test(sl)) return 'served'; if (/progress|active/.test(sl)) return 'pending-it'; if (/approv|hrf/.test(sl)) return 'pending-hrf'; return 'other'; }
 
     function renderTable() {
-      if(!allRecords.length){document.getElementById('taskBody').innerHTML='<tr><td colspan="12"><div class="empty-state">📂 No data yet</div></td></tr>';document.getElementById('taskCount').textContent='0';document.getElementById('recordCount').textContent='0';document.getElementById('taskPagination').innerHTML='';document.getElementById('statsRow').innerHTML='';return;}
-      const start=(currentPage-1)*PAGE_SIZE,page=filteredRecords.slice(start,start+PAGE_SIZE);
-      document.getElementById('taskBody').innerHTML=page.length?page.map(r=>`
-        <tr><td><span class="itsr-number" title="${esc(r.itsrNumber)}">${esc(r.itsrShort)||'—'}</span></td>
-        <td class="desc-cell" title="${esc(r.taskName)}">${esc(r.taskName)}</td>
-        <td>${esc(r.bucket)}</td><td>${statusBadge(r.status)}</td><td>${priorityBadge(r.priority)}</td>
-        <td>${assigneeDisplay(r.assignedTo)}</td><td>${esc(r.createdDate)}</td><td>${esc(r.dueDate)}</td>
-        <td>${esc(r.startDate)}</td><td>${esc(r.completedDate)}</td><td>${esc(r.completedBy)}</td>
-        <td style="text-align:center;"><button class="info-icon" onclick="showDetail(${JSON.stringify(r).replace(/"/g,'&quot;')})">ℹ</button></td></tr>`).join(''):'<tr><td colspan="12" style="text-align:center;padding:1rem;">No matches</td></tr>';
-      document.getElementById('taskCount').textContent=filteredRecords.length;
-      document.getElementById('recordCount').textContent=`${filteredRecords.length}/${allRecords.length}`;
-      const pages=Math.ceil(filteredRecords.length/PAGE_SIZE)||1,pg=document.getElementById('taskPagination');
-      if(pages<=1){pg.innerHTML='';return;}
-      let h=`<button class="page-btn" onclick="goToPage(${currentPage-1})" ${currentPage===1?'disabled':''}>◀</button>`;
-      for(let i=1;i<=Math.min(pages,7);i++)h+=`<button class="page-btn ${i===currentPage?'active':''}" onclick="goToPage(${i})">${i}</button>`;
-      if(pages>7)h+=`<span>...${pages}</span>`;
-      h+=`<button class="page-btn" onclick="goToPage(${currentPage+1})" ${currentPage===pages?'disabled':''}>▶</button>`;
-      pg.innerHTML=h;
+      if (!allRecords.length) { document.getElementById('taskBody').innerHTML = '<tr><td colspan="12"><div class="empty-state"><span class="empty-icon">📂</span><p>No data</p></div></td></tr>'; document.getElementById('taskCount').textContent = '0'; document.getElementById('recordCount').textContent = '0'; document.getElementById('taskPagination').innerHTML = ''; document.getElementById('statsRow').innerHTML = ''; return; }
+      const start = (currentPage - 1) * PAGE_SIZE, page = filteredRecords.slice(start, start + PAGE_SIZE);
+      
+      document.getElementById('taskBody').innerHTML = page.length ? page.map(r => {
+        // Build the row with EXACT column order matching headers
+        return `
+        <tr>
+          <td><span class="itsr-number" title="${esc(r.itsrNumber)}">${esc(r.itsrShort)||'—'}</span></td>
+          <td class="col-desc" title="${esc(r.taskName)}">${esc(r.taskName)}</td>
+          <td title="${esc(r.bucket)}">${esc(r.bucket)}</td>
+          <td>${statusBadge(r.status)}</td>
+          <td>${priorityBadge(r.priority)}</td>
+          <td>${assigneeDisplay(r.assignedTo)}</td>
+          <td>${esc(r.createdDate)}</td>
+          <td>${esc(r.dueDate)}</td>
+          <td>${esc(r.startDate)}</td>
+          <td>${esc(r.completedDate)}</td>
+          <td>${esc(r.completedBy)}</td>
+          <td class="col-info"><button class="info-icon" onclick="showDetail(${JSON.stringify(r).replace(/"/g,'&quot;')})">ℹ</button></td>
+        </tr>`;
+      }).join('') : '<tr><td colspan="12" style="text-align:center;padding:1.5rem;">No matches</td></tr>';
+      
+      document.getElementById('taskCount').textContent = filteredRecords.length;
+      document.getElementById('recordCount').textContent = `${filteredRecords.length} / ${allRecords.length}`;
+      const pages = Math.ceil(filteredRecords.length / PAGE_SIZE) || 1, pg = document.getElementById('taskPagination');
+      if (pages <= 1) { pg.innerHTML = ''; return; }
+      pg.innerHTML = `<button class="page-btn" onclick="goToPage(${currentPage-1})" ${currentPage===1?'disabled':''}>◀</button>` + Array.from({ length: Math.min(pages, 7) }, (_, i) => `<button class="page-btn ${i+1===currentPage?'active':''}" onclick="goToPage(${i+1})">${i+1}</button>`).join('') + (pages > 7 ? `<span>...${pages}</span>` : '') + `<button class="page-btn" onclick="goToPage(${currentPage+1})" ${currentPage===pages?'disabled':''}>▶</button>`;
     }
-    window.goToPage=function(p){currentPage=Math.max(1,Math.min(p,Math.ceil(filteredRecords.length/PAGE_SIZE)||1));renderTable();};
+    window.goToPage = function(p) { currentPage = Math.max(1, Math.min(p, Math.ceil(filteredRecords.length / PAGE_SIZE) || 1)); renderTable(); };
 
     function updateChart() {
-      const canvas=document.getElementById('activityChart'),ctx=canvas.getContext('2d');
-      canvas.width=canvas.parentElement.clientWidth-32;canvas.height=200;
-      const records=filteredRecords.length?filteredRecords:allRecords;
-      if(!records.length){ctx.fillStyle='#848e9c';ctx.font='13px Arial';ctx.fillText('No data',canvas.width/2-30,canvas.height/2);document.getElementById('chartStats').innerHTML='';return;}
-      const weeks={};
-      records.forEach(r=>{[r.createdDate,r.startDate,r.completedDate].filter(Boolean).forEach(dt=>{const d=new Date(dt);if(isNaN(d.getTime()))return;const wk=getWeekKey(d);if(!weeks[wk])weeks[wk]={c:0,s:0,d:0};if(dt===r.createdDate)weeks[wk].c++;else if(dt===r.startDate)weeks[wk].s++;else weeks[wk].d++;});});
-      const sw=Object.keys(weeks).sort();if(!sw.length)return;
-      const w=canvas.width,h=canvas.height,pad={t:20,b:35,l:50,r:20},pW=w-pad.l-pad.r,pH=h-pad.t-pad.b;
-      let mx=1;sw.forEach(k=>{const d=weeks[k];mx=Math.max(mx,d.c+d.s,d.d+1);});
-      ctx.fillStyle='#0b0e11';ctx.fillRect(0,0,w,h);
-      ctx.strokeStyle='#2b2f36';ctx.lineWidth=0.5;
-      for(let i=0;i<=4;i++){const y=pad.t+(pH/4)*i;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(w-pad.r,y);ctx.stroke();ctx.fillStyle='#848e9c';ctx.font='9px Arial';ctx.fillText(Math.round(mx-(mx/4)*i),5,y+3);}
-      const bw=Math.max(8,Math.min(30,pW/sw.length-3));
-      sw.forEach((k,i)=>{const d=weeks[k],x=pad.l+(pW/(sw.length-1||1))*i,cH=((d.c+d.s)/mx)*pH,dH=(d.d/mx)*pH;if(d.c+d.s>0){const g=ctx.createLinearGradient(x-bw/2,pad.t+pH-cH,x+bw/2,pad.t+pH);g.addColorStop(0,'#0ecb81');g.addColorStop(1,'#0ecb8140');ctx.fillStyle=g;ctx.fillRect(x-bw/2,pad.t+pH-cH,bw,Math.max(1,cH));}if(d.d>0){ctx.fillStyle='#f6465d';ctx.fillRect(x-bw/2,pad.t+pH-dH,bw,Math.max(2,dH));}if(i%Math.ceil(sw.length/8)===0||sw.length<=8){ctx.fillStyle='#848e9c';ctx.font='8px Arial';ctx.save();ctx.translate(x,h-5);ctx.rotate(-0.35);ctx.fillText(k.replace('-W','w'),0,0);ctx.restore();}});
-      const tc=records.filter(r=>r.createdDate).length,td=records.filter(r=>r.completedDate).length,rate=tc?Math.round((td/tc)*100):0;
-      document.getElementById('chartStats').innerHTML=`<div class="chart-stat"><div class="val up-color">${tc}</div><div class="lbl">Created</div></div><div class="chart-stat"><div class="val down-color">${td}</div><div class="lbl">Done</div></div><div class="chart-stat"><div class="val" style="color:${rate>=50?'#0ecb81':'#f59e0b'}">${rate}%</div><div class="lbl">Rate</div></div><div class="chart-stat"><div class="val">${sw.length}</div><div class="lbl">Weeks</div></div>`;
+      const canvas = document.getElementById('activityChart'), ctx = canvas.getContext('2d');
+      canvas.width = canvas.parentElement.clientWidth - 32; canvas.height = 200;
+      const records = filteredRecords.length ? filteredRecords : allRecords;
+      if (!records.length) { ctx.fillStyle = '#848e9c'; ctx.font = '14px Arial'; ctx.fillText('No data', canvas.width/2-30, canvas.height/2); return; }
+      const months = {};
+      records.forEach(r => { [r.createdDate, r.startDate, r.completedDate].filter(Boolean).forEach(dt => { const d = new Date(dt); if (isNaN(d.getTime())) return; const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`; if (!months[key]) months[key] = { created: 0, started: 0, completed: 0 }; if (dt === r.createdDate) months[key].created++; else if (dt === r.startDate) months[key].started++; else months[key].completed++; }); });
+      const sorted = Object.keys(months).sort(); if (!sorted.length) return;
+      const w = canvas.width, h = canvas.height, pad = { t: 20, b: 45, l: 50, r: 20 }, pW = w - pad.l - pad.r, pH = h - pad.t - pad.b;
+      let mx = 1; sorted.forEach(k => { const d = months[k]; mx = Math.max(mx, d.created, d.started, d.completed); }); mx = Math.ceil(mx * 1.15);
+      ctx.fillStyle = '#0b0e11'; ctx.fillRect(0, 0, w, h);
+      ctx.strokeStyle = '#2b2f36'; ctx.lineWidth = 0.5;
+      for (let i = 0; i <= 4; i++) { const y = pad.t + (pH / 4) * i; ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(w - pad.r, y); ctx.stroke(); ctx.fillStyle = '#848e9c'; ctx.font = '10px Arial'; ctx.fillText(Math.round(mx - (mx/4)*i), 2, y + 4); }
+      function dl(key, color) { ctx.strokeStyle = color; ctx.lineWidth = 2.5; ctx.beginPath(); let first = true; sorted.forEach((k, i) => { const x = pad.l + (pW / (sorted.length - 1 || 1)) * i; const y = pad.t + pH - (months[k][key] / mx) * pH; if (first) { ctx.moveTo(x, y); first = false; } else ctx.lineTo(x, y); }); ctx.stroke(); sorted.forEach((k, i) => { const x = pad.l + (pW / (sorted.length - 1 || 1)) * i; const y = pad.t + pH - (months[k][key] / mx) * pH; ctx.fillStyle = color; ctx.beginPath(); ctx.arc(x, y, 3, 0, Math.PI*2); ctx.fill(); }); }
+      dl('created', '#0ecb81'); dl('started', '#f0b90b'); dl('completed', '#2563eb');
+      ctx.fillStyle = '#848e9c'; ctx.font = '9px Arial';
+      const step = Math.max(1, Math.floor(sorted.length / 10));
+      sorted.forEach((k, i) => { if (i % step === 0 || sorted.length <= 10) { const x = pad.l + (pW / (sorted.length - 1 || 1)) * i; const [y, m] = k.split('-'); const mn = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][parseInt(m)-1]; ctx.save(); ctx.translate(x, h - 10); ctx.rotate(-0.4); ctx.fillText(`${mn} ${y}`, 0, 0); ctx.restore(); } });
     }
 
-    function applyFilters(){
-      if(!allRecords.length){filteredRecords=[];renderTable();updateChart();return;}
-      const s=document.getElementById('searchInput').value.toLowerCase(),st=document.getElementById('statusFilter').value,pr=document.getElementById('priorityFilter').value,dt=document.getElementById('dateTypeFilter').value,df=document.getElementById('dateFrom').value,dt2=document.getElementById('dateTo').value;
-      filteredRecords=allRecords.filter(r=>{if(currentTab!=='all'&&getStatusCat(r.status)!==currentTab)return false;if(s&&!Object.values(r).some(v=>String(v||'').toLowerCase().includes(s)))return false;if(st&&(r.status||'').toLowerCase()!==st.toLowerCase())return false;if(pr&&(r.priority||'').toLowerCase()!==pr.toLowerCase())return false;if(currentDept&&r.bucket!==currentDept)return false;if(df||dt2){const dv=r[dt];if(!dv)return false;const d=new Date(dv);if(isNaN(d.getTime()))return false;if(df&&d<new Date(df))return false;if(dt2&&d>new Date(dt2+'T23:59:59'))return false;}return true;});
-      filteredRecords.sort((a,b)=>{const va=String(a[currentSort.field]||'').toLowerCase(),vb=String(b[currentSort.field]||'').toLowerCase();return currentSort.dir==='asc'?va.localeCompare(vb):vb.localeCompare(va);});
-      currentPage=1;renderTable();updateStats();updateChart();
+    function getWeekKey(d) { const j = new Date(d.getFullYear(), 0, 1); const days = Math.floor((d - j) / 86400000); return `${d.getFullYear()}-W${String(Math.ceil((days + j.getDay() + 1) / 7)).padStart(2,'0')}`; }
+    function getQuarter(d) { const dt = new Date(d); if (isNaN(dt.getTime())) return null; return `${dt.getFullYear()}-Q${Math.ceil((dt.getMonth()+1)/3)}`; }
+    function getMonthKey(d) { const dt = new Date(d); if (isNaN(dt.getTime())) return null; return `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}`; }
+
+    function generateReport(type) {
+      const records = filteredRecords.length ? filteredRecords : allRecords;
+      if (!records.length) { alert('No data'); return; }
+      let gf, lf, title;
+      if (type === 'weekly') { gf = r => r.completedDate ? getWeekKey(new Date(r.completedDate)) : (r.createdDate ? getWeekKey(new Date(r.createdDate)) : null); lf = k => k ? k.replace('-W', ' Wk ') : 'No Date'; title = '📊 Weekly Report'; }
+      else if (type === 'monthly') { gf = r => r.completedDate ? getMonthKey(new Date(r.completedDate)) : (r.createdDate ? getMonthKey(new Date(r.createdDate)) : null); lf = k => { if (!k) return 'No Date'; const [y, m] = k.split('-'); return `${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][parseInt(m)-1]} ${y}`; }; title = '📆 Monthly Report'; }
+      else { gf = r => r.completedDate ? getQuarter(new Date(r.completedDate)) : (r.createdDate ? getQuarter(new Date(r.createdDate)) : null); lf = k => k || 'No Date'; title = '📈 Quarterly Report'; }
+      const g = {}; records.forEach(r => { const k = gf(r) || 'No Date'; if (!g[k]) g[k] = { t: 0, c: 0, a: 0, p: 0, x: 0 }; g[k].t++; const s = (r.status||'').toLowerCase(); if (/complete|done|served/.test(s)) g[k].c++; else if (/progress|active/.test(s)) g[k].a++; else if (/cancel/.test(s)) g[k].x++; else g[k].p++; });
+      const sk = Object.keys(g).sort((a, b) => a === 'No Date' ? 1 : b === 'No Date' ? -1 : b.localeCompare(a));
+      const tot = { t: records.length, c: 0, a: 0, p: 0, x: 0 }; Object.values(g).forEach(v => { tot.c += v.c; tot.a += v.a; tot.p += v.p; tot.x += v.x; });
+      document.getElementById('reportTitle').textContent = title;
+      document.getElementById('reportSummaryCards').innerHTML = `<div class="report-card"><div class="big-num">${tot.t}</div><div class="lbl">Total</div></div><div class="report-card"><div class="big-num" style="color:var(--success)">${tot.c}</div><div class="lbl">Done</div></div><div class="report-card"><div class="big-num" style="color:var(--accent)">${tot.a}</div><div class="lbl">Active</div></div><div class="report-card"><div class="big-num" style="color:var(--warning)">${tot.p}</div><div class="lbl">Pending</div></div><div class="report-card"><div class="big-num" style="color:var(--danger)">${tot.x}</div><div class="lbl">Cancel</div></div><div class="report-card"><div class="big-num">${sk.length}</div><div class="lbl">Periods</div></div>`;
+      document.getElementById('reportTableHead').innerHTML = '<tr><th>Period</th><th>Total</th><th>Done</th><th>Active</th><th>Pending</th><th>Cancel</th><th>Rate</th></tr>';
+      document.getElementById('reportTableBody').innerHTML = sk.map(k => { const v = g[k]; const rate = v.t ? Math.round((v.c/v.t)*100) : 0; return `<tr><td><strong>${lf(k)}</strong></td><td>${v.t}</td><td style="color:var(--success)">${v.c}</td><td style="color:var(--accent)">${v.a}</td><td style="color:var(--warning)">${v.p}</td><td style="color:var(--danger)">${v.x}</td><td><strong>${rate}%</strong></td></tr>`; }).join('') + `<tr class="highlight-row"><td><strong>TOTAL</strong></td><td><strong>${tot.t}</strong></td><td><strong style="color:var(--success)">${tot.c}</strong></td><td><strong style="color:var(--accent)">${tot.a}</strong></td><td><strong style="color:var(--warning)">${tot.p}</strong></td><td><strong style="color:var(--danger)">${tot.x}</strong></td><td><strong>${tot.t?Math.round((tot.c/tot.t)*100):0}%</strong></td></tr>`;
+      document.getElementById('reportOverlay').classList.add('show');
+    }
+    function closeReport() { document.getElementById('reportOverlay').classList.remove('show'); }
+
+    function applyFilters() {
+      if (!allRecords.length) { filteredRecords = []; renderTable(); updateChart(); return; }
+      const s = document.getElementById('searchInput').value.toLowerCase(), st = document.getElementById('statusFilter').value, pr = document.getElementById('priorityFilter').value, dt = document.getElementById('dateTypeFilter').value, df = document.getElementById('dateFrom').value, dt2 = document.getElementById('dateTo').value;
+      filteredRecords = allRecords.filter(r => { if (currentTab !== 'all' && getStatusCat(r.status) !== currentTab) return false; if (s && !Object.values(r).some(v => String(v || '').toLowerCase().includes(s))) return false; if (st && (r.status || '').toLowerCase() !== st.toLowerCase()) return false; if (pr && (r.priority || '').toLowerCase() !== pr.toLowerCase()) return false; if (currentDept && r.bucket !== currentDept) return false; if (df || dt2) { const dv = r[dt]; if (!dv) return false; const d = new Date(dv); if (isNaN(d.getTime())) return false; if (df && d < new Date(df)) return false; if (dt2 && d > new Date(dt2 + 'T23:59:59')) return false; } return true; });
+      filteredRecords.sort((a, b) => { const va = String(a[currentSort.field] || '').toLowerCase(), vb = String(b[currentSort.field] || '').toLowerCase(); return currentSort.dir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va); });
+      currentPage = 1; renderTable(); updateStats(); updateChart();
     }
 
-    function updateStats(){
-      if(!allRecords.length){document.getElementById('statsRow').innerHTML='';document.getElementById('deptFilterButtons').innerHTML='';return;}
-      const f=filteredRecords;
-      document.getElementById('statsRow').innerHTML=`<div class="stat-card"><div class="stat-val">${f.length}</div><div class="stat-lbl">Total</div></div><div class="stat-card"><div class="stat-val" style="color:var(--success)">${f.filter(r=>/complete|done|served/i.test(r.status||'')).length}</div><div class="stat-lbl">Served</div></div><div class="stat-card"><div class="stat-val" style="color:var(--accent)">${f.filter(r=>/progress|active/i.test(r.status||'')).length}</div><div class="stat-lbl">Active</div></div><div class="stat-card"><div class="stat-val" style="color:var(--warning)">${f.filter(r=>/pending/i.test(r.status||'')).length}</div><div class="stat-lbl">Pending</div></div><div class="stat-card"><div class="stat-val" style="color:var(--danger)">${f.filter(r=>/cancel/i.test(r.status||'')).length}</div><div class="stat-lbl">Cancel</div></div>`;
-      ['statusFilter','priorityFilter'].forEach(id=>{const sel=document.getElementById(id),cv=sel.value,key=id==='statusFilter'?'status':'priority',vals=[...new Set(allRecords.map(r=>r[key]).filter(Boolean))].sort();sel.innerHTML=`<option value="">All</option>`+vals.map(v=>`<option value="${esc(v)}" ${v===cv?'selected':''}>${esc(v)}</option>`).join('');});
-      const depts=[...new Set(allRecords.map(r=>r.bucket).filter(Boolean))].sort(),db=document.getElementById('deptFilterButtons');
-      db.innerHTML=`<button class="dept-btn ${!currentDept?'active':''}" data-dept="">All</button>`+depts.map(d=>`<button class="dept-btn ${currentDept===d?'active':''}" data-dept="${esc(d)}">${esc(d)}</button>`).join('');
-      db.querySelectorAll('.dept-btn').forEach(btn=>{btn.addEventListener('click',()=>{currentDept=btn.dataset.dept;db.querySelectorAll('.dept-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');applyFilters();});});
+    function updateStats() {
+      if (!allRecords.length) { document.getElementById('statsRow').innerHTML = ''; document.getElementById('deptFilterButtons').innerHTML = '<button class="dept-btn active" data-dept="">All</button>'; return; }
+      const f = filteredRecords;
+      document.getElementById('statsRow').innerHTML = `<div class="stat-card"><div class="stat-val">${f.length}</div><div class="stat-lbl">Total</div></div><div class="stat-card"><div class="stat-val" style="color:var(--success)">${f.filter(r=>/complete|done|served/i.test(r.status||'')).length}</div><div class="stat-lbl">Done</div></div><div class="stat-card"><div class="stat-val" style="color:var(--accent)">${f.filter(r=>/progress|active/i.test(r.status||'')).length}</div><div class="stat-lbl">Active</div></div><div class="stat-card"><div class="stat-val" style="color:var(--warning)">${f.filter(r=>/pending/i.test(r.status||'')).length}</div><div class="stat-lbl">Pending</div></div><div class="stat-card"><div class="stat-val" style="color:var(--danger)">${f.filter(r=>/cancel/i.test(r.status||'')).length}</div><div class="stat-lbl">Cancel</div></div>`;
+      ['statusFilter', 'priorityFilter'].forEach(id => { const sel = document.getElementById(id); const key = id === 'statusFilter' ? 'status' : 'priority'; const vals = [...new Set(allRecords.map(r => r[key]).filter(Boolean))].sort(); sel.innerHTML = '<option value="">All</option>' + vals.map(v => `<option value="${esc(v)}">${esc(v)}</option>`).join(''); });
+      const depts = [...new Set(allRecords.map(r => r.bucket).filter(Boolean))].sort(), db = document.getElementById('deptFilterButtons');
+      db.innerHTML = `<button class="dept-btn ${!currentDept?'active':''}" data-dept="">All</button>` + depts.map(d => `<button class="dept-btn ${currentDept===d?'active':''}" data-dept="${esc(d)}">${esc(d)}</button>`).join('');
+      db.querySelectorAll('.dept-btn').forEach(btn => { btn.onclick = () => { currentDept = btn.dataset.dept; db.querySelectorAll('.dept-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); applyFilters(); }; });
     }
 
-    function exportTemplate(){if(!allRecords.length)return alert('No data');const cats={'PENDING IN IT DEPT (URGENT)':r=>/pending/i.test(r.status||'')&&/urgent|high/i.test(r.priority||''),'PENDING HRF 33 (FOR APPROVAL - NORMAL)':r=>/pending|approv/i.test(r.status||'')&&!/urgent|high/i.test(r.priority||''),'CANCELLED REQUEST':r=>/cancel/i.test(r.status||''),'SERVED IT SERVICE REQUEST':r=>/complete|done|served/i.test(r.status||''),'OTHER ACCOMPLISHED TASK':r=>/accomplish/i.test(r.status||''),'OTHER PENDING TASK':r=>!r.status};const hd=['ITSR No.','Dept/Project','Status','Date Received','Date Approved','Type','Request Description','Assignee','Date Routed','RP No.','Est.Amount','Severity','PO No.','IT Remarks'];let html=`<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="UTF-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>ITSR</x:Name></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table border="1"><tr><td colspan="14" style="background:#4472C4;color:#fff;font-weight:bold;font-size:14pt;text-align:center;">HRF 33 IT SERVICE REQUEST</td></tr><tr><td colspan="14" style="text-align:center;">WEEKLY REPORT</td></tr>`;for(const[t,fn]of Object.entries(cats)){const items=allRecords.filter(fn);if(!items.length)continue;html+=`<tr><td colspan="14" style="background:#FFC000;font-weight:bold;">${t}</td></tr><tr>${hd.map(h=>`<th style="background:#D9E2F3;">${h}</th>`).join('')}</tr>`;items.forEach(r=>html+='<tr>'+[r.itsrShort,r.bucket,r.status,r.createdDate,r.dueDate,'',r.taskName,(r.assignedTo||'').replace(/;;/g,'; '),r.startDate,'','',r.priority,'',r.notes].map(v=>`<td>${String(v||'').replace(/&/g,'&amp;')}</td>`).join('')+'</tr>');html+='<tr><td colspan="14">&nbsp;</td></tr>';}html+='</table></body></html>';const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([html],{type:'application/vnd.ms-excel'}));a.download=`HRF33_${new Date().toISOString().slice(0,10)}.xls`;document.body.appendChild(a);a.click();document.body.removeChild(a);}
-    function exportCSV(){if(!filteredRecords.length)return alert('No data');const hd=['ITSR#','Dept/Project','Status','Received','Approved','Description','Assignee','Routed','Done','Done By','Severity','Remarks'];const csv='\uFEFF'+hd.join(',')+'\n'+filteredRecords.map(r=>[r.itsrShort,r.bucket,r.status,r.createdDate,r.dueDate,r.taskName,(r.assignedTo||'').replace(/;;/g,'; '),r.startDate,r.completedDate,r.completedBy,r.priority,r.notes].map(v=>'"'+String(v||'').replace(/"/g,'""')+'"').join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download=`hrf33_${new Date().toISOString().slice(0,10)}.csv`;document.body.appendChild(a);a.click();document.body.removeChild(a);}
+    function exportTemplate() { if (!allRecords.length) return alert('No data'); const cats = { 'PENDING IN IT DEPT': r => /pending/i.test(r.status||''), 'PENDING HRF 33': r => /approv/i.test(r.status||''), 'CANCELLED': r => /cancel/i.test(r.status||''), 'SERVED': r => /complete|done|served/i.test(r.status||''), 'OTHER': r => true }; const hd = ['ITSR No.','Project','Status','Received','Approved','Description','Assignee','Routed','Severity','Remarks']; let html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="UTF-8"></head><body><table border="1"><tr><td colspan="10" style="background:#4472C4;color:#fff;font-weight:bold;font-size:16pt;text-align:center;">HRF 33 IT SERVICE REQUEST</td></tr>`; for (const [t, fn] of Object.entries(cats)) { const items = allRecords.filter(fn); if (!items.length) continue; html += `<tr><td colspan="10" style="background:#FFC000;font-weight:bold;">${t}</td></tr><tr>${hd.map(h=>`<th style="background:#D9E2F3;">${h}</th>`).join('')}</tr>`; items.forEach(r => html += '<tr>'+[r.itsrShort,r.bucket,r.status,r.createdDate,r.dueDate,r.taskName,(r.assignedTo||'').replace(/;;/g,'; '),r.startDate,r.priority,r.notes].map(v=>`<td>${String(v||'').replace(/&/g,'&amp;')}</td>`).join('')+'</tr>'); html += '<tr><td colspan="10"></td></tr>'; } html += '</table></body></html>'; const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([html], { type: 'application/vnd.ms-excel' })); a.download = `HRF33_${new Date().toISOString().slice(0,10)}.xls`; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
+    function exportCSV() { if (!filteredRecords.length) return alert('No data'); const hd = ['ITSR#','Project','Status','Received','Approved','Description','Assignee','Routed','Done','By','Severity','Remarks']; const csv = '\uFEFF' + hd.join(',') + '\n' + filteredRecords.map(r => [r.itsrShort,r.bucket,r.status,r.createdDate,r.dueDate,r.taskName,(r.assignedTo||'').replace(/;;/g,'; '),r.startDate,r.completedDate,r.completedBy,r.priority,r.notes].map(v => '"'+String(v||'').replace(/"/g,'""')+'"').join(',')).join('\n'); const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' })); a.download = `hrf33_${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
 
-    function toggleDark(){document.body.classList.toggle('dark-mode');localStorage.setItem('darkMode',document.body.classList.contains('dark-mode'));updateChart();}
+    function toggleDark() { document.body.classList.toggle('dark-mode'); localStorage.setItem('dm', document.body.classList.contains('dark-mode')); updateChart(); }
 
-    function genSample(){const depts=['YTPI','IBIDEN','HRF','ITD','FAD','OPD'],tasks=['Server PC Setup and Configuration','Upgrade Internet Plan to 50Mbps','LAN Installation for Xerox Machine','Desktop PC Setup for New Employee','Keyboard and Mouse Replacement','Network Switch Configuration','Printer Setup and Network Sharing','Email Migration to Office 365','Firewall Update and Security Patch','VPN Access for Remote Workers'],statuses=['Pending','Pending','In Progress','Completed','Cancelled'],priorities=['Urgent','Normal','Low','Urgent','Normal'],people=['Rachel Dungca','Marte Llanes','Mark Sorquiano','Karen Elumba','Alfredo Del Socorro','John Doe'];return Array.from({length:200},(_,i)=>{const y=2021+Math.floor(Math.random()*6),m=Math.floor(Math.random()*12),d=Math.floor(Math.random()*28)+1,cd=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`,dd=new Date(y,m+Math.floor(Math.random()*3),Math.min(28,d+Math.floor(Math.random()*20))),done=i%3===0,itsrNum=70+i;return{taskId:`ITSR-${itsrNum}`,itsrNumber:`IT Service Request # ${itsrNum}`,itsrShort:`#${itsrNum}`,taskName:tasks[i%10],bucket:depts[i%6],status:done?'Completed':statuses[i%5],priority:priorities[i%5],assignedTo:people.slice(0,1+(i%4)).join(';;'),createdDate:cd,dueDate:done?dd.toISOString().slice(0,10):'',startDate:done?dd.toISOString().slice(0,10):'',completedDate:done?dd.toISOString().slice(0,10):'',completedBy:done?people[i%6]:'',notes:i%3===0?'Fileserver re-configuration required':i%5===0?'Check with vendor':''};});}
+    function genSample() { const depts = ['YTPI','IBIDEN','HRF','ITD','FAD','OPD','New HRF-33']; const tasks = ['Server PC Setup','Upgrade Internet 50Mbps','LAN Installation Xerox','Desktop PC New Employee','Keyboard Mouse Replacement','Network Switch Config','Printer Setup Network','Email Migration O365','Firewall Update Patch','VPN Access Remote','MS 365 License (Corea, Tejada, Ahani)','Server Aganon printing access','PC accountability','2 units monitor','Keyboard Mouse Dual Monitor']; const statuses = ['Pending','In Progress','Completed','Cancelled']; const priorities = ['Urgent','Normal','Low']; const people = ['Rachel Dungca','Marte Llanes','Mark Sorquiano','Karen Elumba','Alfredo Del Socorro','John Doe']; return Array.from({ length: 200 }, (_, i) => { const y = 2021 + Math.floor(Math.random() * 6), m = Math.floor(Math.random() * 12), d = Math.floor(Math.random() * 28) + 1; const cd = `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`; const done = i % 3 === 0; return { taskId: `SRV-${1000+i}`, itsrNumber: `IT Service Request # ${9000+i}`, itsrShort: `#${9000+i}`, taskName: tasks[i % 15], bucket: depts[i % 7], status: done ? 'Completed' : statuses[i % 4], priority: priorities[i % 3], assignedTo: people.slice(0, 1 + (i % 5)).join(';;'), createdDate: cd, dueDate: cd, startDate: cd, completedDate: done ? cd : '', completedBy: done ? people[i % 6] : '', notes: i % 3 === 0 ? 'Fileserver reconfig' : '' }; }); }
 
-    async function init(){
-      await openDB();
-      allRecords = await loadFromDB();
-      if (allRecords.length === 0) { allRecords = genSample(); await saveToDB(allRecords); }
-      filteredRecords = [...allRecords];
-      applyFilters();
-
+    async function init() {
+      await openDB(); allRecords = await loadDB();
+      if (!allRecords.length) { allRecords = genSample(); await saveDB(allRecords); }
+      filteredRecords = [...allRecords]; applyFilters();
       document.getElementById('searchInput').addEventListener('input', debounce(applyFilters, 300));
       ['statusFilter','priorityFilter','dateTypeFilter','dateFrom','dateTo'].forEach(id => document.getElementById(id).addEventListener('change', applyFilters));
-      document.getElementById('clearDateBtn').addEventListener('click', () => { document.getElementById('dateFrom').value=''; document.getElementById('dateTo').value=''; applyFilters(); });
-
-      // Summary Report Buttons
+      document.getElementById('clearDateBtn').addEventListener('click', () => { document.getElementById('dateFrom').value = ''; document.getElementById('dateTo').value = ''; applyFilters(); });
       document.getElementById('weeklyReportBtn').addEventListener('click', () => generateReport('weekly'));
       document.getElementById('monthlyReportBtn').addEventListener('click', () => generateReport('monthly'));
       document.getElementById('quarterlyReportBtn').addEventListener('click', () => generateReport('quarterly'));
-      
-      // Close report on overlay click
-      document.getElementById('reportOverlay').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeReport(); });
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeReport(); });
-
-      document.querySelectorAll('.tabs .tab').forEach(tab => { tab.addEventListener('click', () => { const p=tab.closest('.tabs'); p.querySelectorAll('.tab').forEach(t=>t.classList.remove('active')); tab.classList.add('active'); currentTab=tab.dataset.tab; applyFilters(); }); });
-      document.querySelectorAll('#taskTable th[data-sort]').forEach(th => { th.addEventListener('click', () => { const f=th.dataset.sort; currentSort.dir=(currentSort.field===f&&currentSort.dir==='asc')?'desc':'asc'; currentSort.field=f; document.querySelectorAll('#taskTable th').forEach(h=>h.classList.remove('sorted')); th.classList.add('sorted'); applyFilters(); }); });
-
-      const dz=document.getElementById('dropZone'), fi=document.getElementById('fileInput');
-      dz.addEventListener('click',()=>fi.click()); dz.addEventListener('dragover',e=>{e.preventDefault();});
-      dz.addEventListener('drop',async e=>{e.preventDefault();if(e.dataTransfer.files[0])await pf(e.dataTransfer.files[0]);});
-      fi.addEventListener('change',async e=>{if(e.target.files[0])await pf(e.target.files[0]);});
-      async function pf(file){document.getElementById('loadingOverlay').classList.add('show');try{const recs=await parseFile(file);if(!recs.length)throw new Error('No data');allRecords=recs;await saveToDB(allRecords);currentDept='';applyFilters();alert(`✅ ${recs.length} records loaded and saved!`);}catch(err){alert('❌ '+err.message);}finally{document.getElementById('loadingOverlay').classList.remove('show');fi.value='';}}
-
-      document.getElementById('loadPasteBtn').addEventListener('click',()=>{const t=document.getElementById('pasteInput').value;if(!t.trim())return alert('Paste data');const recs=parseCSV(t);if(!recs.length)return alert('No data');allRecords=recs;saveToDB(allRecords);currentDept='';applyFilters();});
-      document.getElementById('sampleBtn').addEventListener('click',async()=>{allRecords=genSample();await saveToDB(allRecords);currentDept='';applyFilters();alert('✅ Samples loaded!');});
-      document.getElementById('exportXlsxBtn').addEventListener('click',exportTemplate);
-      document.getElementById('exportCsvBtn').addEventListener('click',exportCSV);
-      document.getElementById('clearBtn').addEventListener('click',async()=>{if(confirm('⚠️ DELETE ALL?')){await clearDB();allRecords=[];filteredRecords=[];currentDept='';currentTab='all';renderTable();updateStats();updateChart();document.querySelectorAll('.tabs .tab').forEach((t,i)=>t.classList.toggle('active',i===0));}});
-      document.getElementById('detailModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
-      window.addEventListener('resize',debounce(updateChart,200));
-      if(localStorage.getItem('darkMode')==='true')document.body.classList.add('dark-mode');
+      document.getElementById('reportOverlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeReport(); });
+      document.querySelectorAll('.tabs .tab').forEach(tab => { tab.addEventListener('click', () => { const p = tab.closest('.tabs'); p.querySelectorAll('.tab').forEach(t => t.classList.remove('active')); tab.classList.add('active'); currentTab = tab.dataset.tab; applyFilters(); }); });
+      document.querySelectorAll('#taskTable th[data-sort]').forEach(th => { th.addEventListener('click', () => { const f = th.dataset.sort; currentSort.dir = (currentSort.field === f && currentSort.dir === 'asc') ? 'desc' : 'asc'; currentSort.field = f; document.querySelectorAll('#taskTable th').forEach(h => h.classList.remove('sorted')); th.classList.add('sorted'); applyFilters(); }); });
+      const dz = document.getElementById('dropZone'), fi = document.getElementById('fileInput'); dz.addEventListener('click', () => fi.click()); dz.addEventListener('dragover', e => { e.preventDefault(); }); dz.addEventListener('drop', async e => { e.preventDefault(); if (e.dataTransfer.files[0]) await pf(e.dataTransfer.files[0]); }); fi.addEventListener('change', async e => { if (e.target.files[0]) await pf(e.target.files[0]); });
+      async function pf(file) { document.getElementById('loadingOverlay').classList.add('show'); try { const recs = await parseFile(file); if (!recs.length) throw new Error('No data'); allRecords = recs; await saveDB(allRecords); currentDept = ''; applyFilters(); alert(`✅ ${recs.length} records!`); } catch (err) { alert('❌ ' + err.message); } finally { document.getElementById('loadingOverlay').classList.remove('show'); fi.value = ''; } }
+      document.getElementById('loadPasteBtn').addEventListener('click', async () => { const t = document.getElementById('pasteInput').value; if (!t.trim()) return alert('Paste data'); const recs = parseCSV(t); if (!recs.length) return alert('No data'); allRecords = recs; await saveDB(allRecords); currentDept = ''; applyFilters(); });
+      document.getElementById('sampleBtn').addEventListener('click', async () => { allRecords = genSample(); await saveDB(allRecords); currentDept = ''; applyFilters(); });
+      document.getElementById('exportXlsxBtn').addEventListener('click', exportTemplate);
+      document.getElementById('exportCsvBtn').addEventListener('click', exportCSV);
+      document.getElementById('clearBtn').addEventListener('click', async () => { if (confirm('⚠️ DELETE ALL?')) { await clearDB(); allRecords = []; filteredRecords = []; currentDept = ''; currentTab = 'all'; renderTable(); updateStats(); updateChart(); } });
+      document.getElementById('detailModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeReport(); } });
+      window.addEventListener('resize', debounce(updateChart, 200));
+      if (localStorage.getItem('dm') === 'true') document.body.classList.add('dark-mode');
     }
 
-    function debounce(fn,ms){let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms);};}
-    document.addEventListener('DOMContentLoaded',init);
+    function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; }
+    document.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
 </html>
